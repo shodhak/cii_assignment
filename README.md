@@ -140,7 +140,7 @@ The frequency of reads was plotted by incrementally binning them in read length 
 ![Quality Original](https://drive.google.com/uc?export=view&id=1lYtzw9XMqJOl5d_1oV65Szlz6iI4olap)
 
 #### Average quality scored in main output
-![Quality Output](https://drive.google.com/uc?export=view&id=18BwO4LCDLjRUNqqmd_dimUwkLgLerer)
+![Quality Output](https://drive.google.com/uc?export=view&id=18BwO4LCDLjRUNqqmd_dimUwkLgLerer-)
 
 ### Start and end positions of primer and adaptor
 The goal here was to make a dataframe containing sequence identifiers for all reads and check whether primer and/or adaptor were present or not. In case they were present, their start and end positions were stored. **Pandas** package was used to make this dataframe. As mentioned earlier, majority of questions pertaining to the lengths and presence and absence of primer and adaptor sequences can be answered through such a data structure. 
