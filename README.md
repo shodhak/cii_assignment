@@ -6,7 +6,7 @@ When working with any new dataset, the first step is to understand the data stru
 For this assignment, I have used Biopython to answer the questions based on the provided dataset. Biopython contains great resources for using python for bioinformatics and especially for input/output, handling and analysis of NGS data. There are 3 python scripts to generate the required output and complete majority of tasks, and one bash script for standalone blast. I have tried to explain programming logic and code output for all of them.
 
 ### *Script 1: cii_assignment.py*
-This is the main script that provides output from read and quality realted parameters from original dataset, and also generates the main output file. This script uses **SeqIO module from Bio package** to read, parse, and write files. In the first step, the program asks the user to provide path to the directory containing the required files. This will be set as the working directory. It also asks the user for the names of fasta and qual files, which are then stored in their own variables.
+This is the main script that provides output from read and quality related parameters from original dataset, and also generates the main output file. This script uses **SeqIO module from Bio package** to read, parse, and write files. In the first step, the program asks the user to provide path to the directory containing the required files. This will be set as the working directory. It also asks the user for the names of fasta and qual files, which are then stored in their own variables.
 
 ```python
 #Ask the user for path to the working directory, and names of fasta and qual files
@@ -60,7 +60,7 @@ print("Total number of reads greater than 100 bp in the original dataset: %s" % 
 
 ### 3) Total number of reads with average quality scores greater than 20 in the original dataset
 
-SeqIO reads qual files as well and this time, lists of identifiers and quality scores were made, and average quaity scores were calculated using mean function. For each read, the phred quality scores are read into a list and mean values are calculated through **Statistics** package. These were then filtered for values above 20. There are **43056** reads with average quality scores greater than 20.
+SeqIO reads qual files as well and by using an approach similar to that for fasta, lists of identifiers and quality scores were made, and average quaity scores were calculated using mean function. For each read, the phred quality scores are read into a list and mean values are calculated through **Statistics** package. These were then filtered for values above 20. There are **43056** reads with average quality scores greater than 20.
 ```python
 #Read quality scores for sequences from the qual file
 #Initalize variables for sequence id and base quality data
@@ -92,7 +92,7 @@ print("Total number of reads with primer sequences : %s" % len(list(reads_with_p
 
 ### 5) Total number of reads with adaptor sequences
 
-When the adaptor sequence provided ("ACTGAGTGGGAGGCAAGGCACACAGGGGATAGG") was searched for matches in the reads, there were no hits. The blast output gave matches for 20 nucleotides between positions 14 and 33 on the adaptor sequence. This string with 20 nucleotides ("CAAGGCACACAGGGGATAGG") was used for adaptor trimming.There are **3440** reads containing the adaptor sequence.
+When the adaptor sequence provided ("ACTGAGTGGGAGGCAAGGCACACAGGGGATAGG") was searched for matches in the reads, there were no hits. The blast output gave matches for only 20 nucleotides between positions 14 and 33 on the adaptor sequence. This string with 20 nucleotides ("CAAGGCACACAGGGGATAGG") was used for adaptor trimming. There are **3440** reads containing the adaptor sequence.
 
 ```python
 #Identify reads with adaptor sequence
@@ -116,7 +116,7 @@ reads_with_both = (sequence for sequence in SeqIO.parse(original_dataset,"fasta"
 print("Total number of reads with both primer and adaptor sequences : %s" % len(list(reads_with_both)))
 ```
 ### Generating main output
-The remaining part of the script generates Fasta file containing reads greater than 100bp, average read quality scores greater than 20, primers and adaptors trimmed. This is achieved in a stepwise manner:
+The remaining part of the script generates Fasta file containing reads greater than 100bp, average read quality scores greater than 20, primers and adaptors trimmed. This was achieved in a stepwise manner:
 1. *Filter reads for sequence length greater than 100*
 2. *Filter reads for quality scores greater than 20*
 3. *Trim primer*
@@ -146,7 +146,7 @@ Plot of average quality scores was made for all reads. As required, the average 
 ![Quality Output](https://drive.google.com/uc?export=view&id=18BwO4LCDLjRUNqqmd_dimUwkLgLerer-)
 
 ### Start and end positions of primer and adaptor
-The goal here was to make a dataframe containing sequence identifiers for all reads and check whether primer and/or adaptor were present or not. In case they were present, their start and end positions were stored. **Pandas** package was used to make this dataframe. As mentioned earlier, majority of questions pertaining to the lengths and presence and absence of primer and adaptor sequences can be answered through such a data structure. 
+The goal here was to make a dataframe containing sequence identifiers for all reads and check whether primer and/or adaptor were present or not. In case they were present, their start and end positions were stored. **Pandas** package was used to make this dataframe. As mentioned earlier, majority of questions pertaining to the lengths and presence and absence of primer and adaptor sequences can be answered through such a data structure. I have used to confirm previous resutls. 
 
 ### *Script 3: df_make.py*
 The output of this script provides start and end positions for primer and adaptor sequences if they are present in the read sequence. If they are absent, then "NA" is assigned. The sequence identifier is the index column. The initial dataframe also contains sequence lengths and actual sequences and the results from *cii_assignment.py* were double checked. The values were same as what we found earlier:
