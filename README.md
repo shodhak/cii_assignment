@@ -60,7 +60,7 @@ print("Total number of reads greater than 100 bp in the original dataset: %s" % 
 
 ### 3) Total number of reads with average quality scores greater than 20 in the original dataset
 
-SeqIO reads qual files as well and this time, lists of identifiers and quality scores were made, and average quaity scores were calculated using mean function. These were then filtered for values above 20. There are **43056** reads with average quality scores greater than 20.
+SeqIO reads qual files as well and this time, lists of identifiers and quality scores were made, and average quaity scores were calculated using mean function. For each read, the phred quality scores are read into a list and mean values are calculated through **Statistics** package. These were then filtered for values above 20. There are **43056** reads with average quality scores greater than 20.
 ```python
 #Read quality scores for sequences from the qual file
 #Initalize variables for sequence id and base quality data
@@ -95,7 +95,7 @@ print("Total number of reads with primer sequences : %s" % len(list(reads_with_p
 When the adaptor sequence provided ("ACTGAGTGGGAGGCAAGGCACACAGGGGATAGG") was searched for matches in the reads, there were no hits. The blast output gave matches for 20 nucleotides between positions 14 and 33 on the adaptor sequence. This string with 20 nucleotides ("CAAGGCACACAGGGGATAGG") was used for adaptor trimming.There are **3440** reads containing the adaptor sequence.
 
 ```python
-#Identiy reads with adaptor sequence
+#Identify reads with adaptor sequence
 #Assign variable for adaptor sequence
 adaptor = "ACTGAGTGGGAGGCAAGGCACACAGGGGATAGG"
 reads_with_adaptor = (sequence for sequence in SeqIO.parse(original_dataset,"fasta") \
@@ -135,6 +135,9 @@ The frequency of reads was plotted by incrementally binning them in read length 
 
 #### Read lengths in main output
 ![Lengths Output](https://drive.google.com/uc?export=view&id=1UIp7i5yFBIcI6YL2FxdY8mF9N2sCv3DH)
+
+### Average quality scores
+Plot of average quality scores was made for all reads. As required, the average quality scores of all reads in the main output is more than 20.
 
 #### Average quality scored in original dataset
 ![Quality Original](https://drive.google.com/uc?export=view&id=1lYtzw9XMqJOl5d_1oV65Szlz6iI4olap)
